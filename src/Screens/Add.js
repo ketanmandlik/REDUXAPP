@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import shortid from 'shortid';
 import propTypes from 'prop-types';
 import {addSeason} from '../Redux/actions/list';
@@ -29,7 +29,20 @@ const Add = ({navigation, addSeason}) => {
 
   return (
     <View>
-      <Text>Add screen</Text>
+      <TextInput
+        value={name}
+        onChangeText={text => setName(text)}
+        placeholder="Name"
+      />
+      <TextInput
+        placeholder="Season"
+        value={totalNumberOfSeason}
+        onChangeText={text => setTotalNoOfSeason(text)}
+      />
+
+      <>
+        <Button onPress={() => handleSubmit()} title="Add Season"></Button>
+      </>
     </View>
   );
 };
