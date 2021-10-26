@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import shortid from 'shortid';
 import propTypes from 'prop-types';
+import {addSeason} from '../Redux/actions/list';
+import {connect} from 'react-redux';
 
 const Add = ({navigation, addSeason}) => {
   const [name, setName] = useState('');
@@ -13,6 +15,13 @@ const Add = ({navigation, addSeason}) => {
       if (!name || !totalNumberOfSeason) {
         return alert('Please enter both fields');
       }
+      const seasonToAdd = {
+        id: shortid.generate(),
+        name,
+        totalNumberOfSeason,
+        isWatched: false,
+      };
+      addSeason(seasonToAdd);
     } catch (error) {
       console.log(error);
     }
@@ -27,12 +36,16 @@ const Add = ({navigation, addSeason}) => {
 
 //Redux config
 
+const mapDispatchToProps = {
+  addSeason: data => addSeason(data),
+};
+
 Add.propTypes = {
   addSeason: propTypes.func.isRequired,
 };
 
 //Redux export
 
-export default Add;
+export default connect(null, mapDispatchToProps)(Add);
 
 const styles = StyleSheet.create({});
